@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sorry Nabiya Mariyam ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+    }
+    .page {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .active {
+      display: flex;
+    }
+    button {
+      background: #ff4b5c;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 30px;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+
+    /* Heart */
+    .heart-container {
+      position: relative;
+      width: 220px;
+      height: 200px;
+    }
+    .heart {
+      position: absolute;
+      width: 220px;
+      height: 200px;
+      background: red;
+      top: 0;
+      left: 0;
+      transform: rotate(-45deg) scale(1);
+      animation: heartbeat 1s infinite;
+    }
+    .heart:before,
+    .heart:after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 200px;
+      border-radius: 50%;
+      background: red;
+    }
+    .heart:before {
+      top: -100px;
+      left: 0;
+    }
+    .heart:after {
+      left: 100px;
+      top: 0;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: rotate(-45deg) scale(1); }
+      50% { transform: rotate(-45deg) scale(1.1); }
+    }
+
+    .heart-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: rotate(45deg) translate(-50%, -50%);
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      width: 80%;
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff4b5c, 0 0 30px #ff1e56;
+      animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 5px #fff, 0 0 10px #ff4b5c; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff1e56; }
+    }
+
+    /* Emoji tsunami */
+    .emoji {
+      position: absolute;
+      font-size: 30px;
+      animation: fall 5s linear forwards;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1 -->
+  <div class="page active" id="page1">
+    <h1>Hey Miss Nabiya Mariyam 💕</h1>
+    <p>I want to show you what is there in my heart</p>
+    <button onclick="goToPage(2)">Click to See 💖</button>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page" id="page2">
+    <video id="loveVideo" width="80%" controls>
+      <source src="love.mp4.mp4" type="video/mp4">
+      Your browser does not support video.
+    </video>
+  </div>
+
+  <!-- Page 3 -->
+  <div class="page" id="page3">
+    <div class="heart-container">
+      <div class="heart"></div>
+      <div class="heart-text">I Love You Nabiya Mariyam ❤️</div>
+    </div>
+    <div style="margin-top: 40px; position: relative; z-index: 10;">
+      <button onclick="goToPage(4)">Love you too Mr. Khan 💕</button>
+    </div>
+  </div>
+
+  <!-- Page 4 -->
+  <div class="page" id="page4">
+    <h1>💖😘💋 Forever Together 💋😘💖</h1>
+    <audio id="bgMusic" src="laila.mp3.mp3" autoplay loop></audio>
+  </div>
+
+  <script>
+    function goToPage(num) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page' + num).classList.add('active');
+
+      if (num === 4) {
+        document.getElementById("bgMusic").play().catch(()=>{});
+        startEmojiTsunami();
+      }
+    }
+
+    // Move to page 3 after video ends
+    const video = document.getElementById("loveVideo");
+    video.onended = () => {
+      goToPage(3);
+    };
+
+    // Emoji tsunami
+    function startEmojiTsunami() {
+      const emojis = ["💖","😘","💋","❤️","💕","💞","💓","💘"];
+      let count = 0;
+      const interval = setInterval(() => {
+        const emoji = document.createElement("div");
+        emoji.classList.add("emoji");
+        emoji.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        emoji.style.left = Math.random()*100 + "vw";
+        emoji.style.top = "-50px";
+        emoji.style.fontSize = (20 + Math.random()*40) + "px";
+        document.body.appendChild(emoji);
+        count++;
+        if (count > 200) clearInterval(interval);
+      }, 50);
+    }
+  </script>
+
+</body>
+</html>
